@@ -26,6 +26,7 @@
 ;;(define-key function-key-map "\e\eOB" [(meta down)])
 ;;(define-key function-key-map "\e\e2C" [(control meta up)])
 ;;(define-key function-key-map "\e\e2D" [(control meta down)])
+(define-key global-map (kbd "RET") 'newline-and-indent-and-no-whitespace)
 
 (global-set-key [(meta g)] 'goto-line)
 (global-set-key (kbd "ESC <up>") 'backward-paragraph)         ;; Mac OS X doesn't seem pick up the meta key for this
@@ -101,6 +102,17 @@
     (insert line "\n")
     (move-to-column col)
     )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Remove trailing whitspace on newlines
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun newline-and-indent-and-no-whitespace ()
+  "Ensure there is no trailing whitespace when adding newlines"
+  (interactive)
+  (delete-horizontal-space)
+  (newline-and-indent)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

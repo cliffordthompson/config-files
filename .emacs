@@ -22,17 +22,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Key remappings due to rxvt terminal
-;;(define-key input-decode-map "\e\eOA" [(meta up)])
-;;(define-key input-decode-map "\e\eOB" [(meta down)])
-;;(define-key input-decode-map "\e\e[A" [(control meta up)])
-;;(define-key input-decode-map "\e\e[B" [(control meta down)])
+;;(define-key function-key-map "\e\eOA" [(meta up)])
+;;(define-key function-key-map "\e\eOB" [(meta down)])
+;;(define-key function-key-map "\e\e2C" [(control meta up)])
+;;(define-key function-key-map "\e\e2D" [(control meta down)])
 
 (global-set-key [(meta g)] 'goto-line)
+(global-set-key (kbd "ESC <up>") 'backward-paragraph)         ;; Mac OS X doesn't seem pick up the meta key for this
+(global-set-key (kbd "ESC <down>") 'forward-paragraph)        ;; Mac OS X doesn't seem pick up the meta key for this
 (global-set-key [(meta up)] 'backward-paragraph)
 (global-set-key [(meta down)] 'forward-paragraph)
-;;(global-set-key (kbd "ESC <up>") 'backward-paragraph)         ;; Mac OS X doesn't seem pick up the meta key for this
-;;(global-set-key (kbd "ESC <down>") 'forward-paragraph)        ;; Mac OS X doesn't seem pick up the meta key for this
-(global-set-key [(meta  up)] 'transpose-line-up)      ;; C-M-up move current line up
+(global-set-key [(control meta  up)] 'transpose-line-up)      ;; C-M-up move current line up
 (global-set-key [(control meta down)] 'transpose-line-down)   ;; C-M-down move current line down
 (global-set-key [(control c) (d)] 'duplicate-line)            ;; C-c-d duplicate current line with integer increment
 (global-set-key [(control x) left] 'windmove-left)            ;; move to left window

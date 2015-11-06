@@ -30,10 +30,10 @@
 (global-set-key [(meta g)] 'goto-line)
 (global-set-key [(meta up)] 'backward-paragraph)
 (global-set-key [(meta down)] 'forward-paragraph)
-(global-set-key (kbd "ESC <up>") 'backward-paragraph)         ;; Mac OS X doesn't seem pick up the meta key for this
-(global-set-key (kbd "ESC <down>") 'forward-paragraph)        ;; Mac OS X doesn't seem pick up the meta key for this
-(global-set-key [(control meta up)] 'move-line-up)            ;; C-M-up move current line up
-(global-set-key [(control meta down)] 'move-line-down)        ;; C-M-down move current line down
+;;(global-set-key (kbd "ESC <up>") 'backward-paragraph)         ;; Mac OS X doesn't seem pick up the meta key for this
+;;(global-set-key (kbd "ESC <down>") 'forward-paragraph)        ;; Mac OS X doesn't seem pick up the meta key for this
+(global-set-key [(meta  up)] 'transpose-line-up)      ;; C-M-up move current line up
+(global-set-key [(control meta down)] 'transpose-line-down)   ;; C-M-down move current line down
 (global-set-key [(control c) (d)] 'duplicate-line)            ;; C-c-d duplicate current line with integer increment
 (global-set-key [(control x) left] 'windmove-left)            ;; move to left window
 (global-set-key [(control x) right] 'windmove-right)          ;; move to right window
@@ -68,14 +68,14 @@
 ;;; Line motion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun move-line-up ()
+(defun transpose-line-up ()
   "Move the current line up."
   (interactive)
   (transpose-lines 1)
   (forward-line -2)
   (indent-according-to-mode))
 
-(defun move-line-down ()
+(defun transpose-line-down ()
   "Move the current line down."
   (interactive)
   (forward-line 1)

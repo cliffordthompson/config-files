@@ -1,0 +1,123 @@
+################################################################################
+##
+## Copyright (c) 2011 Clifford Thompson
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program.  If not, see <http://www.gnu.org
+##
+################################################################################
+
+# This is the default menu file for Blackbox 0.33.0 and up
+# 
+# Lines beginning with the '#' character are ignored.
+#
+# The new syntax is simpler than the old X resource format...
+# Each menu item consists of 2 or 3 fields:
+#
+#	[command]  (label)  {data}
+#
+# where [command] is one of:
+#
+#   [begin] [end] [exec] [exit] [reconfig] [restart]
+#   [submenu] [style] [include] [workspaces] [config]
+#
+# [begin] is used for the top level menu
+# [submenu] is used for submenus
+# [end] must be used with BOTH [begin] and [submenu] to tell the parser to stop
+#   reading from the file.
+#
+# [exec] (label) {string}
+# This will insert an item that runs a program.
+#
+# [exit] (label)
+# This will insert an item that exits the window manager.
+#
+# [reconfig] (label) {string}
+# This will insert an item that tells blackbox to re-read it's configuration
+#  files.  {string} is optional, and if supplied, will execute the string with
+#  /bin/sh -c before the reconfiguration is performed.  (this is helpful for
+#  writing multiple config files and switching between them)
+#
+# [restart] (label) {string}
+# This will insert an item to restart the window manager.  {string} is
+# optional, and if omitted, blackbox will restart itself.  If {string} is
+# specified, then a different window manager will be started.
+#
+# [style] (filename)
+# This will insert an item to reconfigure blackbox with the new style. This
+# change is saved when blackbox exits or restarts.
+#
+# [include] (filename)
+# This will read more menu items from the file "filename".  The file cannot
+# contain a [begin] or [end], except for the [end] needed for submenus.
+#
+# [workspaces] (label)
+# This tells Blackbox to insert a "link" to the workspaces menu directly
+# into your menu.
+#
+# [config] (label)
+# This tells Blackbox to insert the ConfigMenu into your menu.  The ConfigMenu
+# allows you to change several options found in your ~/.blackboxrc file on the
+# fly.
+#
+# example:
+
+[begin] (Blackbox)
+  [exec] (terminal)        {rxvt -title rxvt -ls}
+
+  [nop]
+
+  [exec] (xemacs)   {xemacs}
+  [exec] (firefox)  {firefox}
+  [exec] (jabber)   {pidgin}
+  [exec] (soffice)  {soffice}
+
+  [submenu] (utils)
+    [exec] (xfontsel)   {xfontsel}
+    [exec] (xman)       {xman}
+    [exec] (gnome calc) {gnome-calculator}
+    [exec] (xload)      {xload}
+    [exec] (xeyes)      {xeyes}
+    [exec] (xsnow)      {xsnow -snowflakes 1000 -santa 2}
+  [end]
+
+  [nop]
+ 
+  [submenu] (styles) {Choose a style...}
+    [stylesdir] (~/.blackbox/styles)
+  [end]
+
+#  [workspaces] (workspaces)
+
+  [submenu] (config)
+    [config] (config)
+    
+    [reconfig] (reconfigure)
+    [restart] (restart)
+    [submenu] (others wms)              {Other Window Managers}
+      [restart] (gnome)       {gnome-session}
+    [end]
+  [end]
+
+  [exec] (pager) {bbpager}
+  [exec] (conky) {conky}
+
+  [nop]
+  [exec] (volume) {gnome-volume-control}
+#  [exec] (xlock grav)   {xlock -mode grav -count 2000}
+#  [exec] (xlock voters)   {xlock -mode voters -cycles 100 -size 50 -count 2}
+  [exec] (xlock swarm) {xlock -mode swarm -cycles 1000 -size 20 -count 500}
+  [exit] (exit)
+[end]
+
+# End of example menu.

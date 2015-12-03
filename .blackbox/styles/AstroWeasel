@@ -1,0 +1,243 @@
+################################################################################
+##
+## Copyright (c) 2011 Clifford Thompson
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program.  If not, see <http://www.gnu.org
+##
+################################################################################
+
+*textColor:			rgb:c/c/c
+*font:                          Bitstream Vera Sans-6
+
+toolbar:		        raised gradient vertical
+toolbar.color:			rgb:50/50/60
+toolbar.colorTo:		rgb:30/30/30
+toolbar.font:                   Bitstream Vera Sans-6
+
+toolbar.button:			parentrelative
+toolbar.button.color:		rgb:4/4/4
+toolbar.button.picColor:	rgb:c/c/c
+toolbar.button.pressed:		sunken solid bevel2
+toolbar.button.pressed.color:   rgb:4/4/4
+
+toolbar.label:			parentrelative
+toolbar.label.textColor:	rgb:c/c/c
+
+toolbar.windowLabel:		parentrelative
+toolbar.windowLabel.textColor:	rgb:f/f/f
+
+toolbar.clock:			parentrelative
+toolbar.clock.textColor:	rgb:c/c/c
+
+toolbar.justify:		Center
+
+menu.title:			raised gradient vertical
+menu.title.color:		rgb:50/50/60
+menu.title.colorTo:		rgb:30/30/30
+menu.title.textColor:           rgb:c/c/c
+menu.title.justify:		center
+menu.title.font:                Bitstream Vera Sans-6
+
+menu.frame:			flat solid bevel1
+menu.frame.color:		rgb:30/30/30
+menu.frame.textColor:		rgb:c0/c0/c0
+menu.frame.justify:		left
+menu.frame.font:                Bitstream Vera Sans-8
+
+menu.hilite:			raised gradient vertical
+menu.hilite.color:		rgb:c0/c0/c0
+menu.hilite.colorTo:		rgb:b0/b0/b0
+menu.hilite.textColor:		rgb:30/30/30
+
+menu.bullet:			triangle
+menu.bullet.position:		right
+
+window.font:                    Bitstream Vera Sans-6
+window.handleHeight:            8
+
+window.title.desktop.height:    40
+window.title.focus:		raised gradient vertical
+window.title.focus.color:	rgb:50/50/60
+window.title.focus.colorTo:	rgb:30/30/30
+window.title.unfocus:		raised gradient vertical
+window.title.unfocus.color:	rgb:40/40/40
+window.title.unfocus.colorTo:	rgb:28/28/28
+
+window.label.focus:		parentrelative
+window.label.focus.textColor:	rgb:c/c/c
+window.label.unfocus:		parentrelative
+window.label.unfocus.textColor:	rgb:6/6/6
+
+window.handle.focus:		raised gradient vertical
+window.handle.focus.color:	rgb:60/60/60
+window.handle.focus.colorTo:	rgb:30/30/30
+window.handle.unfocus:		raised gradient vertical
+window.handle.unfocus.color:	rgb:40/40/40
+window.handle.unfocus.colorTo:	rgb:20/20/20
+
+window.grip.focus:		raised gradient vertical
+window.grip.focus.color:	rgb:60/60/60
+window.grip.focus.colorTo:	rgb:30/30/30
+window.grip.unfocus:		raised gradient vertical
+window.grip.unfocus.color:	rgb:40/40/40
+window.grip.unfocus.colorTo:	rgb:20/20/20
+
+window.button.focus:		parentrelative
+window.button.focus.color:	rgb:4/4/4
+window.button.focus.colorTo:	rgb:ee/ee/bb
+window.button.focus.picColor:	rgb:c/c/c
+window.button.unfocus:		parentrelative
+window.button.unfocus.picColor:	rgb:6/6/6
+window.button.pressed:		sunken solid bevel2
+window.button.pressed.color:	rgb:9/9/9
+
+window.frame.focusColor:	rgb:50/50/50
+window.frame.unfocusColor:	rgb:40/40/40
+
+window.justify:			center
+
+borderColor:			rgb:20/20/20
+
+borderWidth:			1
+bevelWidth:			1
+handleWidth:			2
+
+*font:			snap
+
+rootCommand: bsetroot -mod 10 10 -fg rgb:40/40/45 -bg rgb:20/20/25
+
+!**********************************************************************
+!** bbpager.rc: bbpager configuration file                           **
+!**                                                                  **
+!** This is the global bbpager configuration file. To make           **
+!** user-specific modifications, you should copy this file to your   **
+!** home directory in $HOME/.bbtools/bbpager.rc and edit that file.  **
+!**                                                                  **
+!** All options have been commented out in this file. To change an   **
+!** option from its default setting, uncomment it and modify the     **
+!** setting.                                                         **
+!**********************************************************************
+
+
+!**********************************************************************
+!** behavior section
+!**********************************************************************
+
+!** Indicate whether the bbpager window is withdrawn. If using with
+!**   blackbox, "withdrawn" means it will be placed in the slit.
+bbpager.withdrawn:     False
+
+!** Set the position of the bbpager window.
+!** Relevant only when bbpager.withdrawn is False.
+bbpager.position:               +1523-0
+
+!** Set the width and height of bbpager's model of the desktop windows.
+bbpager.desktop.width:          36
+bbpager.desktop.height:         10
+
+
+! change bbpager style
+bbpager.frame:			raised solid
+bbpager.frame.color:		rgb:50/50/60
+bbpager.frame.margin:           0
+
+bbpager.desktop:		flat solid
+bbpager.desktop.color:		rgb:40/40/50
+
+bbpager.window:			Flat Solid
+bbpager.window.color:		rgb:58/58/68
+bbpager.window.height:          10
+
+bbpager.window.focus:		flat solid
+bbpager.window.focus.color:	rgb:7/7/7
+
+bbpager.active.window.borderColor:      black
+bbpager.inactive.window.borderColor:	black
+bbpager.active.desktop.borderColor:	black
+
+
+!** Define the desktop window style. This style is used to draw
+!**   all desktops when bbpager.desktop.focusStyle is none or border,
+!**   and it is used to draw the unfocused desktops when
+!**   bbpager.desktop.focusStyle is texture.
+!** bbpager will attempt to copy these options from the blackbox
+!**   toolbar.label style.
+!bbpager.desktop.appearance: Flat solid
+!bbpager.desktop.color:     black
+
+!** Define the focused desktop window style. This style is used
+!**   to draw the focused desktop when bbpager.desktop.focusStyle
+!**   is texture.
+!bbpager.desktop.focus.appearance: rasied gradient
+!bbpager.desktop.focus.color:     #333333
+
+
+!** Set the window focus style. This is the method to distinguish
+!**   the focused window from unfocused windows. When set to none,
+!**   a window will appear the same whether or not it is focused.
+!**   When set to border, a window's border may change when it is
+!**   focused, but its interior appearance will not. When set to
+!**   texture, a window's border and interior appearance may
+!**   change when it is focused.
+!** Possible values: none, border, texture
+bbpager.window.focusStyle:      border
+
+!** Define the border for the focused desktop window.
+!** Set borderWidth to 0 for no border.
+!** Not relevant when bbpager.desktop.focusStyle is none.
+bbpager.active.desktop.borderColor:	#888888
+bbpager.active.desktop.borderWidth:	1
+
+!** Define the border for unfocused desktop windows.
+!** Set borderWidth to 0 for no border.
+bbpager.inactive.desktop.borderColor:	#1f1f1f
+bbpager.inactive.desktop.borderWidth:	1
+
+!** Define the border for the focused window.
+!** Set borderWidth to 0 for no border.
+!** Not relevant when bbpager.window.focusStyle is none.
+!bbpager.active.window.borderColor:	#ff1493
+!bbpager.active.window.borderColor:	#ff4500
+!bbpager.active.window.borderWidth:	1
+
+!** Define the border for unfocused windows.
+!** Set borderWidth to 0 for no border.
+!bbpager.inactive.window.borderColor:	#1f1f1f
+!bbpager.inactive.window.borderWidth:	1
+
+
+** Set the mouse button used to perform various actions.
+!** Typically, button 1 is the left mouse button, 2 middle, 3 right,
+!**   etc., though this may be changed in the user's X configuration.
+!** A value of 0 may be assigned to bbpager.windowFocusButton or
+!**   bbpager.windowRaiseButton, meaning that no button will perform
+!**   these actions.
+!** Multiple functions may be assigned to a single mouse button. For
+!**   example, raise and focus might be good candidates to assign to
+!**   the same button.
+
+bbpager.desktopChangeButton:	1
+bbpager.windowMoveButton:       0
+bbpager.windowFocusButton:	1
+bbpager.windowRaiseButton:	1
+
+!** Set the margin between the edge of the tool and the desktops.
+bbpager.margin:             0
+
+!** Set the margin between the desktops.
+bbpager.desktop.margin:	 1
+
+
+
+

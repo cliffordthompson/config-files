@@ -1,0 +1,67 @@
+################################################################################
+##
+## Copyright (c) 2011 Clifford Thompson
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program.  If not, see <http://www.gnu.org
+##
+################################################################################
+
+session.screen0.slit.placement:	CenterRight
+session.screen0.slit.direction:	Vertical
+session.screen0.slit.onTop:	False
+session.screen0.slit.autoHide:	False
+session.screen0.toolbar.onTop:	False
+session.screen0.toolbar.autoHide:	False
+session.screen0.toolbar.placement:	BottomLeft
+session.screen0.toolbar.widthPercent:	30
+session.screen0.enableToolbar:	True
+session.screen0.workspaces:	10
+session.screen0.workspaceNames:	Workspace 0,Workspace 1,Workspace 2,Workspace 3,Workspace 4,Workspace 5,Workspace 6,Workspace 7,Workspace 8,Workspace 9
+session.screen0.strftimeFormat:	%I:%M %p
+
+session.screen1.slit.placement:	CenterRight
+session.screen1.slit.direction:	Vertical
+session.screen1.slit.onTop:	False
+session.screen1.slit.autoHide:	False
+session.screen1.toolbar.onTop:	False
+session.screen1.toolbar.autoHide:	False
+session.screen1.toolbar.placement:	BottomLeft
+session.screen1.toolbar.widthPercent:	30
+session.screen1.enableToolbar:	True
+session.screen1.workspaces:	10
+session.screen1.workspaceNames:	Workspace 0,Workspace 1,Workspace 2,Workspace 3,Workspace 4,Workspace 5,Workspace 6,Workspace 7,Workspace 8,Workspace 9
+session.screen1.strftimeFormat:	%I:%M %p
+
+session.opaqueMove:	False
+session.maximumColors:	0
+session.toolbarActionsWithMouseWheel:	True
+session.disableBindingsWithScrollLock:	False
+session.styleFile:	~/.blackbox/styles/AstroWeasel
+session.imageDither:	OrderedDither
+session.colPlacementDirection:	TopToBottom
+session.opaqueResize:	False
+session.shadeWindowWithMouseWheel:	True
+session.rowPlacementDirection:	LeftToRight
+session.windowPlacement:	RowSmartPlacement
+session.placementIgnoresShaded:	True
+session.menuFile:	~/.blackbox/blackbox-menu
+session.fullMaximization:	False
+session.focusNewWindows:	True
+session.edgeSnapThreshold:	0
+session.focusModel:	ClickToFocus
+session.autoRaiseDelay:	400
+session.focusLastWindow:	True
+session.changeWorkspaceWithMouseWheel:	True
+session.windowSnapThreshold:	0
+session.doubleClickInterval:	250

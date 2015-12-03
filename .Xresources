@@ -1,0 +1,50 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!
+!! Copyright (c) 2011 Clifford Thompson
+!!
+!! This program is free software: you can redistribute it and/or modify
+!! it under the terms of the GNU General Public License as published by
+!! the Free Software Foundation, either version 3 of the License, or
+!! (at your option) any later version.
+!!
+!! This program is distributed in the hope that it will be useful,
+!! but WITHOUT ANY WARRANTY; without even the implied warranty of
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!! GNU General Public License for more details.
+!!
+!! You should have received a copy of the GNU General Public License
+!! along with this program.  If not, see <http://www.gnu.org
+!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+XTerm*font: -*-clean-medium-r-*-*-12-*-*-*-*-*-*-*
+XTerm*background: black
+XTerm*foreground: grey80
+XTerm*pointerColor: white
+XTerm*pointerColorBackground: yellow
+XTerm*cursorColor: orange
+XTerm*internalBorder: 2
+XTerm*loginShell: true
+XTerm*ScrollBar: true
+XTerm*scrollBar.width: 10
+XTerm*ScrollKey: true
+XTerm*SaveLines: 100000
+XTerm*multiClickTime: 250
+XTerm*VT100.geometry: 100x50
+XTerm*rightScrollBar: true
+
+urxvt*transparent:     true
+urxvt*shading:         60
+urxvt**background:     black
+urxvt*foreground:      grey80
+urxvt*blurRadius:      2
+urxvt*cursorColor:     orange
+urxvt*scrollstyle:     xterm
+urxvt*scrollBar_right: true
+urxvt*borderLess:      false
+urxvt*saveLines:       100000
+urxvt*modifier:        alt
+urxvt*geometry:        100x50
+urxvt*termName:        xterm
+
+Emacs*menubar*font: *-courier-medium-r-*-*-*-120-*-*-*-*-*-*

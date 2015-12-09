@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Copyright (c) 2015 Clifford Thompson
 ;;
@@ -207,14 +207,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Earlier version of emacs are missing libraries for auto-complete
-;; mode. So don' load them in that case
+;; mode. So don't load them in that case
 
-(if (version<= emacs-version "24.5")
+(if (version< emacs-version "24")
     (progn
-      (message "Emacs version is earlier than 24.5. Not loading auto-complete mode.")
+      (message "Emacs version is earlier than 24. Not loading auto-complete mode.")
       )
   (progn
-    (message "Emacs version is 24.5 or later. Loading auto-complete mode.")
+    (message "Emacs version is later than or equal to 24. Loading auto-complete mode.")
     (add-to-list 'load-path "~/.emacs.d/auto-complete")
     (require 'auto-complete-config)
     (ac-config-default)

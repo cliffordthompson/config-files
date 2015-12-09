@@ -135,6 +135,22 @@
                              "~/.emacs.d/org/gtd/references.org"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; electric pairs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(if (version< emacs-version "24")
+  (progn
+    (message "Emacs version is earlier than 24. Not loading electric-pair mode.")
+  )
+  (progn
+    (message "Emacs version is later than or equal to 24. Loading electric-pair mode.")
+    (electric-pair-mode t)
+    (electric-pair-delete-adjacent-pairs t)
+    (electric-pair-skip-self t)
+    (electric-pair-open-newline-between-pairs t)
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Marking a word under a cursor
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

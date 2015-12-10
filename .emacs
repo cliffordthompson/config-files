@@ -144,9 +144,9 @@
   (progn
     (message "Emacs version is later than or equal to 24. Loading electric-pair mode.")
     (electric-pair-mode t)
-    (electric-pair-delete-adjacent-pairs t)
-    (electric-pair-skip-self t)
-    (electric-pair-open-newline-between-pairs t)
+    (setq electric-pair-delete-adjacent-pairs t)
+    (setq electric-pair-skip-self t)
+    (setq electric-pair-open-newline-between-pairs t)
   )
 )
 

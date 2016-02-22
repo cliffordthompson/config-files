@@ -48,12 +48,15 @@
 (global-set-key [(control x) (meta l)] 'linum-mode)           ;; C-x M-l toggle line number mode
 (global-set-key [(control x) (meta o)] 'ff-find-other-file)   ;; C-x M-o C-x M-o open opposite source file
 (global-set-key [(meta 8)] 'extend-selection)                 ;; M-8 mark the word under cursor
-(global-set-key [(control x) (meta 46)] 'gtags-find-tag-from-here) ;; C-x M-. finds tag
-(global-set-key [(control x) (meta 47)] 'gtags-find-rtag)          ;; C-x M-/ find all references
-(global-set-key [(control x) (meta 39)] 'gtags-pop-stack)          ;; C-x M-' pop the gtags
-(global-set-key [(control x) (meta 44)] 'gtags-find-file)          ;; C-x M-, finds file
-(global-set-key [(control x) (meta 59)] 'gtags-find-tag)           ;; C-x M-; finds symbol usages
+(global-set-key [(control c) 59]
+    (lambda () (interactive) (iedit-mode 0)))                 ;; C-c-; toggle iedit mode in current function
+(global-set-key [(control x) (n) (f)] 'narrow-to-defun)       ;; C-x n f Narrow function
+(global-set-key [(control x) (n) (r)] 'narrow-to-region)      ;; C-x n r Narrow region
 
+(global-unset-key [(control x) (n) (d)])                      ;; C-x n d was Narrow function
+(global-unset-key [(control x) (n) (n)])                      ;; C-x n n was Narrow between point and mark
+
+;;(setq kill-whole-line t)                                    ;; C-k deletes the entire line including the CR
 (setq delete-key-deletes-forward t)                           ;; Foward deletion
 (setq transient-mark-mode t)                                  ;; Highlight region when marking
 (setq make-backup-files nil)                                  ;; Disable ~ files
@@ -64,6 +67,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq linum-format "%4d|")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Show paren mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(show-paren-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Line motion
@@ -194,34 +203,6 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; GNU Global
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Load Gtags support
-;;(setq load-path (cons "<path to gtags.el>" load-path))
-;;(load-library "gtags")
-;;(autoload 'gtags-mode "gtags" "" t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Autocomplete mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Earlier version of emacs are missing libraries for auto-complete
-;; mode. So don't load them in that case
-
-(if (version< emacs-version "24")
-    (progn
-      (message "Emacs version is earlier than 24. Not loading auto-complete mode.")
-      )
-  (progn
-    (message "Emacs version is later than or equal to 24. Loading auto-complete mode.")
-    (add-to-list 'load-path "~/.emacs.d/auto-complete")
-    (require 'auto-complete-config)
-    (ac-config-default)
-    )
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Version control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -314,6 +295,13 @@ ov)
 (which-function-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; clifford:emacs-ide
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load-file "~/.emacs.d/clifford.el")
+(add-hook 'after-init-hook 'clifford:setup-emacs-ide)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Custom Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -322,6 +310,7 @@ ov)
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(ac-delay 0.75)
  '(c-label-minimum-indentation 0)
  '(c-offsets-alist
    (quote
@@ -390,7 +379,7 @@ ov)
      (c-offsets-alist
       (statement-block-intro . +))
      (statement-block-intro . 8))))
- '(show-paren-delay 2)
+ '(show-paren-delay 0)
  '(show-paren-style (quote parenthesis))
  '(show-trailing-whitespace t))
 

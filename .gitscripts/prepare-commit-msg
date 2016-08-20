@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+#################################################################
+# Pre-populate the commit message with the current branch name.
+#################################################################
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+echo "$BRANCH_NAME": "$(cat $1)" > $1

@@ -25,15 +25,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-emacs-ide ()
-  (iteractive)
-  (message "Setting up Emacs IDE plugins for %s" major mode)
-  (clifford:setup-gnu-global)
-  (clifford:setup-auto-complete)
-  (clifford:setup-iedit)
-  (clifford:setup-yasnippet)
-  (clifford:setup-ff-find-other-files)
-  (clifford:setup-flycheck)
-  (clifford:setup-ycmd))
+  ;;(iteractive)
+  ;;(message "Setting up Emacs IDE plugins for %s" major mode)
+  ;;(clifford:setup-gnu-global)
+  ;;(clifford:setup-auto-complete)
+  ;;(clifford:setup-iedit)
+  ;;(clifford:setup-yasnippet)
+  ;;(clifford:setup-ff-find-other-files)
+  ;;(clifford:setup-flycheck)
+  ;;(clifford:setup-ycmd)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GNU Global

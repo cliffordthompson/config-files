@@ -212,18 +212,20 @@
 ;; File to mode bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq auto-mode-alist (append '(("\\.cpp$"  .  c++-mode)
-                                ("\\.cc$"   .  c++-mode)
-                                ("\\.c$"    .  c-mode)
-                                ("\\.gp$"   .  shell-script-mode) ;; GNU Plot
-                                ("\\.h$"    .  c++-mode)
-                                ("\\.ut$"   .  c++-mode)
-                                ("\\.xml$"  .  nxml-mode)
-                                ("\\.xsd$"  .  nxml-mode)
-                                ("\\.xsl$"  .  nxml-mode)
-                                ("\\.xslt$" .  nxml-mode)
-                                ("\\.wsdl$" .  nxml-mode)
-                                ("\\.org$"  .  org-mode)) auto-mode-alist))
+(setq auto-mode-alist (append '(("\\.cpp$"           . c++-mode)
+                                ("\\.cc$"            . c++-mode)
+                                ("\\.c$"             . c-mode)
+                                ("\\.gp$"            . shell-script-mode) ;; GNU Plot
+                                ("\\.h$"             . c++-mode)
+                                ("\\.ut$"            . c++-mode)
+                                ("\\.xml$"           . nxml-mode)
+                                ("\\.xsd$"           . nxml-mode)
+                                ("\\.xsl$"           . nxml-mode)
+                                ("\\.xslt$"          . nxml-mode)
+                                ("\\.wsdl$"          . nxml-mode)
+                                ("\\.org$"           . org-mode)
+                                ("CMakelists\\.txt$". cmake-mode)
+                                ("\\.cmake$"          . cmake-mode)) auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GDB Bindings
@@ -306,52 +308,15 @@ ov)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(ac-delay 0.75)
  '(c-label-minimum-indentation 0)
- '(c-offsets-alist
-   (quote
-    ((statement . 0)
-     (statement-cont . 4)
-     (substatement . 0)
-     (substatement-open . 0)
-     (statement-block-intro . 4)
-     (block-open . 0)
-     (block-close . 0)
-     (case-label . 0)
-     (defun-open . 0)
-     (defun-block-intro . 4)
-     (defun-close . 0)
-     (topmost-intro . 0)
-     (topmost-intro-cont . 0)
-     (else-clause . 0)
-     (brace-list-intro . 4)
-     (brace-list-open . 0)
-     (brace-list-entry . 0)
-     (brace-list-close . 0)
-     (inextern-lang . 0)
-     (arglist-intro . 4)
-     (comment-intro . 0)
-     (label . 0)
-     (class-open . 0)
-     (class-close . 0)
-     (member-init-intro . 4)
-     (member-init-cont . 0)
-     (friend . 0)
-     (cpp-macro-cont . 12)
-     (inclass . 4)
-     (innamespace . 4)
-     (inher-intro . 4)
-     (access-label . -4)
-     (inline-open . 0)
-     (inline-close . 0)
-     (template-args-cont c-lineup-template-args +))))
+ '(c-offsets-alist (quote ((statement . 0) (statement-cont . 4) (substatement . 0) (substatement-open . 0) (statement-block-intro . 4) (block-open . 0) (block-close . 0) (case-label . 0) (defun-open . 0) (defun-block-intro . 4) (defun-close . 0) (topmost-intro . 0) (topmost-intro-cont . 0) (else-clause . 0) (brace-list-intro . 4) (brace-list-open . 0) (brace-list-entry . 0) (brace-list-close . 0) (inextern-lang . 0) (arglist-intro . 4) (comment-intro . 0) (label . 0) (class-open . 0) (class-close . 0) (member-init-intro . 4) (member-init-cont . 0) (friend . 0) (cpp-macro-cont . 12) (inclass . 4) (innamespace . 4) (inher-intro . 4) (access-label . -4) (inline-open . 0) (inline-close . 0) (template-args-cont c-lineup-template-args +))))
  '(column-number-mode t)
- '(erc-autoaway-message
-   "I'm gone (auto after %i seconds od idletime). You might need to send me an email if I'm not paying attention.")
+ '(erc-autoaway-message "I'm gone (auto after %i seconds od idletime). You might need to send me an email if I'm not paying attention.")
  '(erc-autoaway-mode t)
  '(erc-current-nick-highlight-type (quote nick-or-keyword))
  '(erc-enable-logging t)
@@ -359,9 +324,9 @@ ov)
  '(erc-log-channels-directory "~/.emacs.d/erc/log")
  '(erc-log-insert-log-on-open nil)
  '(erc-log-mode t)
- '(erc-log-write-after-insert)
+ '(erc-log-write-after-insert nil)
  '(erc-log-write-after-send t)
- '(erc-save-buffer-on-part)
+ '(erc-save-buffer-on-part nil)
  '(ff-always-try-to-create nil)
  '(ff-ignore-include t)
  '(gdb-many-windows t)
@@ -372,24 +337,20 @@ ov)
  '(org-agenda-skip-deadline-if-done t)
  '(org-log-done (quote time) t)
  '(org-log-note-clock-out nil)
- '(safe-local-variables-values
-   (quote
-    ((tabs-width . 4)
-     (topmost-intro . 8)
-     (c-offsets-alist
-      (statement-block-intro . +))
-     (statement-block-intro . 8))))
+ '(safe-local-variables-values (quote ((tabs-width . 4) (topmost-intro . 8) (c-offsets-alist (statement-block-intro . +)) (statement-block-intro . 8))))
  '(show-paren-delay 0)
  '(show-paren-style (quote parenthesis))
- '(show-trailing-whitespace t))
+ '(show-trailing-whitespace t)
+ '(visible-cursor nil))
 
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "green"))))
+ '(cursor ((t (:background "black"))))
  '(ediff-current-diff-A ((((class color) (min-colors 16)) (:background "color-80"))))
  '(ediff-current-diff-Ancestor ((((class color) (min-colors 16)) (:background "color-80"))))
  '(ediff-current-diff-B ((((class color) (min-colors 16)) (:background "color-80"))))
@@ -424,17 +385,17 @@ ov)
  '(font-lock-keyword-face ((t (:foreground "orange3"))))
  '(font-lock-preprocessor-face ((t (:foreground "#cd00cd"))))
  '(font-lock-string-face ((t (:foreground "green4"))))
- '(font-lock-type-face ((((class color) (min-colors 8)) (:foreground "yellow3"))))
+ '(font-lock-type-face ((t (:foreground "gold"))))
  '(font-lock-variable-name-face ((t (:foreground "cyan4"))))
  '(highlight ((((class color) (min-colors 88) (background light)) (:background "grey" :foreground "black"))))
  '(link ((((class color) (background light)) (:foreground "steelblue" :underline t))))
  '(minibuffer-prompt ((t (:foreground "red"))))
- '(mode-line ((t (:background "color-22" :foreground "black" :box (:line-width -1 :style released-button)))))
- '(mode-line-buffer-id ((t (:foreground "color-17" :weight light))))
+ '(mode-line ((t (:background "forestgreen" :foreground "black" :box (:line-width -1 :style released-button)))))
+ '(mode-line-buffer-id ((t (:foreground "white" :weight light))))
  '(mode-line-inactive ((t (:inherit mode-line :background "#7f7f7f" :foreground "black" :box (:line-width -1 :color "grey75") :weight light))))
- '(region ((((class color) (min-colors 88) (background light)) (:background "grey10"))))
- '(show-paren-match ((((class color) (background light)) (:foreground "brightwhite"))))
- '(show-paren-mismatch ((((class color)) (:foreground "red"))))
+ '(region ((t (:background "#111111"))))
+ '(show-paren-match ((t (:foreground "green"))))
+ '(show-paren-mismatch ((t (:background "red" :foreground "grey"))))
  '(trailing-whitespace ((((class color) (background light)) (:background "red")))))
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

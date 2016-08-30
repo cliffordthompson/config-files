@@ -1,0 +1,13 @@
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+"\eOD": backward-word
+"\eOC": forward-word
+"\e\e[D": backward-word
+"\e\e[C": forward-word
+
+$if mode=emacs
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
+$endif

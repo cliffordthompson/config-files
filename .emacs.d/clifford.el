@@ -25,9 +25,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-emacs-ide ()
-  ;;(iteractive)
-  ;;(message "Setting up Emacs IDE plugins for %s" major mode)
-  ;;(clifford:setup-gnu-global)
+  (message "Setting up Emacs IDE plugins for %s" major-mode)
+  (clifford:setup-gnu-global)
   ;;(clifford:setup-auto-complete)
   ;;(clifford:setup-iedit)
   ;;(clifford:setup-yasnippet)
@@ -41,7 +40,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-gnu-global ()
-  (setq load-path (cons "<path to gtags.el>" load-path))
+  (setq load-path (cons "~/.emacs.d" load-path))
   (load-library "gtags")
   (autoload 'gtags-mode "gtags" "" t)
 

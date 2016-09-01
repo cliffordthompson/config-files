@@ -28,7 +28,7 @@
   (message "Setting up Emacs IDE plugins for %s" major-mode)
   (clifford:setup-gnu-global)
   (clifford:setup-auto-complete)
-  ;;(clifford:setup-iedit)
+  (clifford:setup-iedit)
   ;;(clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
   ;;(clifford:setup-flycheck)
@@ -86,7 +86,7 @@
 ;;; iedit mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun clifford-setup-iedit ()
+(defun clifford:setup-iedit ()
   (add-to-list 'load-path "~/.emacs.d/plugins/iedit")
   (require 'iedit))
 

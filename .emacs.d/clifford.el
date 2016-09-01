@@ -27,7 +27,7 @@
 (defun clifford:setup-emacs-ide ()
   (message "Setting up Emacs IDE plugins for %s" major-mode)
   (clifford:setup-gnu-global)
-  ;;(clifford:setup-auto-complete)
+  (clifford:setup-auto-complete)
   ;;(clifford:setup-iedit)
   ;;(clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
@@ -40,7 +40,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-gnu-global ()
-  (setq load-path (cons "~/.emacs.d" load-path))
+  (setq load-path (cons "~/.emacs.d/plugins" load-path))
   (load-library "gtags")
   (autoload 'gtags-mode "gtags" "" t)
 
@@ -55,11 +55,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-auto-complete ()
-  (if (version<= emacs-version "24.5")
+  (if (version<= emacs-version "24.3")
     (progn
-      (message "Emacs version is earlier than or equal to 24.5. Not loading auto-complete mode."))
+      (message "Emacs version is earlier than or equal to 24.3. Not loading auto-complete mode."))
     (progn
-      (message "Emacs version is later than 24.5. Loading auto-complete mode.")
+      (message "Emacs version is later than 24.3. Loading auto-complete mode.")
       (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete")
       (require 'auto-complete-config)
       (ac-config-default)

@@ -29,9 +29,10 @@
   (clifford:setup-gnu-global)
   (clifford:setup-auto-complete)
   (clifford:setup-iedit)
-  ;;(clifford:setup-yasnippet)
+  (clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
-  ;;(clifford:setup-flycheck)
+  (clifford:setup-flycheck)
+  (clifford:setup-projectile)
   ;;(clifford:setup-ycmd)
   )
 
@@ -94,35 +95,41 @@
 ;;; flycheck mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun clifford-setup-flycheck ()
+(defun clifford:setup-flycheck ()
   (message "Starting Flycheck mode")
   (add-to-list 'load-path "~/.emacs.d/plugins/dash")
   (add-to-list 'load-path "~/.emacs.d/plugins/flycheck")
   (add-to-list 'load-path "~/.emacs.d/plugins/flycheck-tip")
   (require 'flycheck)
-  (clifford:setup-flycheck-include-paths)
-  (clifford:setup-flycheck-font-faces)
+;;  (clifford:setup-flycheck-include-paths)
 
   ;; Flycheck popup tips
   (require 'flycheck-tip)
-  (flycheck-tip-user-timer 'verbose))
+  (flycheck-tip-use-timer 'verbose))
 
 (defun clifford:setup-flycheck-include-paths ()
-  (setq flycheck-clang-standard-library "libc++"))
+(setq flycheck-highlighting-mode (quote lines)))
+
+;; Enable C++11 support for gcc
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 ;;  (setq flycheck-clang-include-path
 ;;        (list
 ;;         (file-truename (concat clifford:workspace-path "<dirA>"))
 ;;         (file-truename (concat clifford:workspace-path "<dirB>")))))
 
-(defun clifford:setup-flycheck-font-faces ()
-  (custom-set-faces)
-  '(flycheck-warning ((t  (:background "yellow" :forground "black"))))
-  '(flycheck-error ((t  (:background "red" :forground "grey")))))
-
 ;; Testing function for trying out flycheck
 (defun clifford:setup-test-flycheck-workspace ()
   (interactive)
   (clifford:setup-flycheck))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; porjectile mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun clifford:setup-projectile ()
+  (require 'projectile)
+  (projectile-global-mode)
+  (message "Starting projectile-mode with root at %s" projectile-project-root))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ycmd mode

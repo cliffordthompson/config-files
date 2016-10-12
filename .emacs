@@ -50,6 +50,7 @@
 (global-set-key [(meta 8)] 'extend-selection)                 ;; M-8 mark the word under cursor
 (global-set-key [(control c) 59]
     (lambda () (interactive) (iedit-mode 0)))                 ;; C-c-; toggle iedit mode in current function
+(global-set-key [(control c) 44] 'iedit-mode)                 ;; C-c-' toggle iedit mode in current file
 (global-set-key [(control x) (n) (f)] 'narrow-to-defun)       ;; C-x n f Narrow function
 (global-set-key [(control x) (n) (r)] 'narrow-to-region)      ;; C-x n r Narrow region
 
@@ -60,7 +61,7 @@
 (setq delete-key-deletes-forward t)                           ;; Foward deletion
 (setq transient-mark-mode t)                                  ;; Highlight region when marking
 (setq make-backup-files nil)                                  ;; Disable ~ files
-(setq auto-save-default nil)                                  ;; Disable #auto-ssave# files
+(setq auto-save-default nil)                                  ;; Disable #auto-save# files
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Line number mode
@@ -224,8 +225,8 @@
                                 ("\\.xslt$"          . nxml-mode)
                                 ("\\.wsdl$"          . nxml-mode)
                                 ("\\.org$"           . org-mode)
-                                ("CMakelists\\.txt$". cmake-mode)
-                                ("\\.cmake$"          . cmake-mode)) auto-mode-alist))
+                                ("CMakeLists\\.txt$" . cmake-mode)
+                                ("\\.cmake$"         . cmake-mode)) auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GDB Bindings
@@ -316,6 +317,7 @@ ov)
  '(c-label-minimum-indentation 0)
  '(c-offsets-alist (quote ((statement . 0) (statement-cont . 4) (substatement . 0) (substatement-open . 0) (statement-block-intro . 4) (block-open . 0) (block-close . 0) (case-label . 4) (defun-open . 0) (defun-block-intro . 4) (defun-close . 0) (topmost-intro . 0) (topmost-intro-cont . 0) (else-clause . 0) (brace-list-intro . 4) (brace-list-open . 0) (brace-list-entry . 0) (brace-list-close . 0) (inextern-lang . 0) (arglist-intro . 4) (comment-intro . 0) (label . 0) (class-open . 0) (class-close . 0) (member-init-intro . 4) (member-init-cont . 0) (friend . 0) (cpp-macro-cont . 12) (inclass . 4) (innamespace . 4) (inher-intro . 4) (access-label . -4) (statement-case-intro . 4) (inline-open . 0) (inline-close . 0) (template-args-cont c-lineup-template-args +))))
  '(column-number-mode t)
+ '(dabbrev-case-fold-search nil)
  '(erc-autoaway-message "I'm gone (auto after %i seconds od idletime). You might need to send me an email if I'm not paying attention.")
  '(erc-autoaway-mode t)
  '(erc-current-nick-highlight-type (quote nick-or-keyword))
@@ -332,7 +334,8 @@ ov)
  '(flycheck-disabled-checkers (quote (c/c++-clang)))
  '(flycheck-gcc-language-standard "c++11")
  '(flycheck-highlighting-mode (quote lines))
- '(flycheck-idle-change-delay 0.1)
+ '(flycheck-idle-change-delay 0.5)
+ '(flycheck-python-pycompile-executable "/usr/bin/python3")
  '(gdb-many-windows t)
  '(gdb-use-separate-io-buffer t)
  '(gud-gdb-command-name "gdb --annotate=1")
@@ -383,8 +386,8 @@ ov)
  '(erc-notice-face ((t (:foreground "grey50" :weight normal))))
  '(erc-prompt-face ((t (:foreground "orange" :weight normal))))
  '(erc-timestamp-face ((t (:foreground "green4" :weight normal))))
- '(flycheck-error ((t (:background "red" :foreground "brightwhite" :underline "red"))))
- '(flycheck-warning ((t (:background "cyan" :underline "brightwhite"))))
+ '(flycheck-error ((t (:background "red4" :foreground "brightwhite" :underline nil))))
+ '(flycheck-warning ((t (:background "cyan" :foreground "black"))))
  '(font-lock-comment-face ((t (:foreground "red"))))
  '(font-lock-constant-face ((t (:foreground "cyan4"))))
  '(font-lock-function-name-face ((t (:foreground "steelblue"))))
@@ -399,8 +402,8 @@ ov)
  '(mode-line ((t (:background "forestgreen" :foreground "black" :box (:line-width -1 :style released-button)))))
  '(mode-line-buffer-id ((t (:foreground "white" :weight light))))
  '(mode-line-inactive ((t (:inherit mode-line :background "#7f7f7f" :foreground "black" :box (:line-width -1 :color "grey75") :weight light))))
- '(region ((t (:background "#111111"))))
- '(show-paren-match ((t (:foreground "green"))))
+ '(region ((t (:background "#333333"))))
+ '(show-paren-match ((t (:background "#005f00" :foreground "grey"))))
  '(show-paren-mismatch ((t (:background "red" :foreground "grey"))))
  '(trailing-whitespace ((((class color) (background light)) (:background "red")))))
 (put 'upcase-region 'disabled nil)

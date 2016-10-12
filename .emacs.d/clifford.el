@@ -105,14 +105,15 @@
 
   ;; Flycheck popup tips
   (require 'flycheck-tip)
-  (flycheck-tip-use-timer 'verbose))
+  (flycheck-tip-use-timer 'verbose)
+  ;; Enable flycheck for c++ files
+  (add-hook 'c++-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'sh-mode-hook 'flycheck-mode))
 
 (defun clifford:setup-flycheck-include-paths ()
-(setq flycheck-highlighting-mode (quote lines)))
-
-;; Enable C++11 support for gcc
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
-;;  (setq flycheck-clang-include-path
+  (setq flycheck-highlighting-mode (quote lines)))
+;;  (setq flycheck-gcc-include-path
 ;;        (list
 ;;         (file-truename (concat clifford:workspace-path "<dirA>"))
 ;;         (file-truename (concat clifford:workspace-path "<dirB>")))))

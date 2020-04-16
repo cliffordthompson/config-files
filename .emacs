@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Copyright (c) 2015 Clifford Thompson
+;; Copyright (c) 2015-2020 Clifford Thompson
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -62,6 +62,13 @@
 (setq transient-mark-mode t)                                  ;; Highlight region when marking
 (setq make-backup-files nil)                                  ;; Disable ~ files
 (setq auto-save-default nil)                                  ;; Disable #auto-save# files
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Disable the splash screen (to enable it agin, replace
+;; the t with 0)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq inhibit-splash-screen t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Line number mode
@@ -213,11 +220,18 @@
 ;; File to mode bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(require 'groovy-mode)
+
 (setq auto-mode-alist (append '(("\\.cpp$"           . c++-mode)
                                 ("\\.cc$"            . c++-mode)
                                 ("\\.c$"             . c-mode)
                                 ("\\.gp$"            . shell-script-mode) ;; GNU Plot
                                 ("\\.h$"             . c++-mode)
+                                ("\\.js$"            . js-mode)
+                                ("\\.java$"          . java-mode)
+                                ("\\.pl$"            . cperl-mode)
+                                ("\\.pm$"            . cperl-mode)
+                                ("\\.pp$"            . par-packer-mode)
                                 ("\\.ut$"            . c++-mode)
                                 ("\\.xml$"           . nxml-mode)
                                 ("\\.xsd$"           . nxml-mode)
@@ -225,6 +239,7 @@
                                 ("\\.xslt$"          . nxml-mode)
                                 ("\\.wsdl$"          . nxml-mode)
                                 ("\\.org$"           . org-mode)
+                                ("Jenkinsfile$"      . groovy-mode)
                                 ("CMakeLists\\.txt$" . cmake-mode)
                                 ("\\.cmake$"         . cmake-mode)) auto-mode-alist))
 
@@ -285,7 +300,7 @@ ov)
 ;;(define-abbrev-table 'html-mode-abbrev-table ())
 ;;(define-abbrev html-mode-abbrev-table "<head" 'company-html-head-skeleton)
 ;;(define-abbrev html-mode-abbrev-table "<body" 'company-html-body-skeleton)
-;;(define-abbrev html-mode-abbrev-table "<php"  'company--html-php-skeleton)
+;;(define-abbrev html-mode-abbrev-table "<php"  'company-html-php-skeleton)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc
@@ -296,6 +311,15 @@ ov)
 
 ;; Display the enclosing scope in the modeline
 (which-function-mode t)
+
+;; Ensure that emacs doesn't automatically close on C-x c
+(setq confirm-kill-emacs #'yes-or-no-p)
+
+;; Setup MELPA packages location
+(require 'package)
+(add-to-list 'package-archives
+             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; clifford:emacs-ide
@@ -315,10 +339,51 @@ ov)
  ;; If there is more than one, they won't work right.
  '(ac-delay 0.75)
  '(c-label-minimum-indentation 0)
- '(c-offsets-alist (quote ((statement . 0) (statement-cont . 4) (substatement . 0) (substatement-open . 0) (statement-block-intro . 4) (block-open . 0) (block-close . 0) (case-label . 4) (defun-open . 0) (defun-block-intro . 4) (defun-close . 0) (topmost-intro . 0) (topmost-intro-cont . 0) (else-clause . 0) (brace-list-intro . 4) (brace-list-open . 0) (brace-list-entry . 0) (brace-list-close . 0) (inextern-lang . 0) (arglist-intro . 4) (comment-intro . 0) (label . 0) (class-open . 0) (class-close . 0) (member-init-intro . 4) (member-init-cont . 0) (friend . 0) (cpp-macro-cont . 12) (inclass . 4) (innamespace . 4) (inher-intro . 4) (access-label . -4) (statement-case-intro . 4) (inline-open . 0) (inline-close . 0) (template-args-cont c-lineup-template-args +))))
+ '(c-offsets-alist
+   (quote
+    ((statement . 0)
+     (statement-cont . 4)
+     (substatement . 0)
+     (substatement-open . 0)
+     (statement-block-intro . 4)
+     (block-open . 0)
+     (block-close . 0)
+     (case-label . 4)
+     (defun-open . 0)
+     (defun-block-intro . 4)
+     (defun-close . 0)
+     (topmost-intro . 0)
+     (topmost-intro-cont . 0)
+     (else-clause . 0)
+     (brace-list-intro . 4)
+     (brace-list-open . 0)
+     (brace-list-entry . 0)
+     (brace-list-close . 0)
+     (inextern-lang . 0)
+     (arglist-intro . 4)
+     (comment-intro . 0)
+     (label . 0)
+     (class-open . 0)
+     (class-close . 0)
+     (member-init-intro . 4)
+     (member-init-cont . 0)
+     (friend . 0)
+     (cpp-macro-cont . 12)
+     (inclass . 4)
+     (innamespace . 4)
+     (inher-intro . 4)
+     (access-label . -4)
+     (statement-case-intro . 4)
+     (inline-open . 0)
+     (inline-close . 0)
+     (template-args-cont c-lineup-template-args +))))
  '(column-number-mode t)
+ '(cperl-brace-offset -2)
+ '(cperl-continued-brace-offset 0)
+ '(css-indent-offset 2)
  '(dabbrev-case-fold-search nil)
- '(erc-autoaway-message "I'm gone (auto after %i seconds od idletime). You might need to send me an email if I'm not paying attention.")
+ '(erc-autoaway-message
+   "I'm gone (auto after %i seconds od idletime). You might need to send me an email if I'm not paying attention.")
  '(erc-autoaway-mode t)
  '(erc-current-nick-highlight-type (quote nick-or-keyword))
  '(erc-enable-logging t)
@@ -332,19 +397,32 @@ ov)
  '(ff-always-try-to-create nil)
  '(ff-ignore-include t)
  '(flycheck-disabled-checkers (quote (c/c++-clang)))
+ '(flycheck-eslintrc "~/../../.eslintrc.js")
  '(flycheck-gcc-language-standard "c++11")
  '(flycheck-highlighting-mode (quote lines))
  '(flycheck-idle-change-delay 0.5)
+ '(flycheck-perlcritic-severity 1)
+ '(flycheck-perlcriticrc "perlcritic.conf")
  '(flycheck-python-pycompile-executable "/usr/bin/python3")
  '(gdb-many-windows t)
  '(gdb-use-separate-io-buffer t)
  '(gud-gdb-command-name "gdb --annotate=1")
  '(indent-tabs-mode nil)
+ '(js-chain-indent t)
+ '(js-enabled-frameworks (quote (javascript)))
+ '(js-indent-level 2)
  '(large-file-warning-threshold nil)
  '(org-agenda-skip-deadline-if-done t)
  '(org-log-done (quote time) t)
  '(org-log-note-clock-out nil)
- '(safe-local-variables-values (quote ((tabs-width . 4) (topmost-intro . 8) (c-offsets-alist (statement-block-intro . +)) (statement-block-intro . 8))))
+ '(package-selected-packages (quote (flymake groovy-mode pkg-info seq let-alist)))
+ '(safe-local-variables-values
+   (quote
+    ((tabs-width . 4)
+     (topmost-intro . 8)
+     (c-offsets-alist
+      (statement-block-intro . +))
+     (statement-block-intro . 8))))
  '(show-paren-delay 0)
  '(show-paren-style (quote parenthesis))
  '(show-trailing-whitespace t)
@@ -356,8 +434,9 @@ ov)
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "grey" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Courier New"))))
  '(comint-highlight-prompt ((t (:foreground "green"))))
- '(cursor ((t (:background "black"))))
+ '(cursor ((t (:background "orange"))))
  '(ediff-current-diff-A ((((class color) (min-colors 16)) (:background "color-80"))))
  '(ediff-current-diff-Ancestor ((((class color) (min-colors 16)) (:background "color-80"))))
  '(ediff-current-diff-B ((((class color) (min-colors 16)) (:background "color-80"))))
@@ -408,3 +487,4 @@ ov)
  '(trailing-whitespace ((((class color) (background light)) (:background "red")))))
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)

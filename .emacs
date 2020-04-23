@@ -220,8 +220,6 @@
 ;; File to mode bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'groovy-mode)
-
 (setq auto-mode-alist (append '(("\\.cpp$"           . c++-mode)
                                 ("\\.cc$"            . c++-mode)
                                 ("\\.c$"             . c-mode)

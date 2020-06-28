@@ -230,6 +230,7 @@
                                 ("\\.pl$"            . cperl-mode)
                                 ("\\.pm$"            . cperl-mode)
                                 ("\\.pp$"            . par-packer-mode)
+                                ("\\.ts$"            . typescript-mode)
                                 ("\\.ut$"            . c++-mode)
                                 ("\\.xml$"           . nxml-mode)
                                 ("\\.xsd$"           . nxml-mode)
@@ -413,7 +414,9 @@ ov)
  '(org-agenda-skip-deadline-if-done t)
  '(org-log-done (quote time) t)
  '(org-log-note-clock-out nil)
- '(package-selected-packages (quote (flymake groovy-mode pkg-info seq let-alist)))
+ '(package-selected-packages
+   (quote
+    (typescript-mode flymake groovy-mode pkg-info seq let-alist)))
  '(safe-local-variables-values
    (quote
     ((tabs-width . 4)

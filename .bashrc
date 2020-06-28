@@ -1,6 +1,6 @@
 ################################################################################
 ##
-## Copyright (c) 2015-2020 Clifford Thompson
+## Copyright (c) 2015 Clifford Thompson
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -17,28 +17,16 @@
 ##
 ################################################################################
 
-[user]
-        name = Clifford Thompson
-        email = clifford.thompson@gmail.com
-[merge]
-        conflictstyle = diff3
-[mergetool]
-        cmd = emerge $LOCAL $REMOTE $BASE $MERGED
-[color]
-        status = auto
-        branch = auto
-        ui     = true
-[color "diff"]
-       meta = black white
-       old  = red
-       new  = green
-[alias]
-        wdiff = diff --word-diff
-        lg    = log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
-        lga   = log --color --graph --decorate --all --oneline
-        new-branch = checkout -b
-        ba = branch --all
-[push]
-        default = simple
-[core]
-	editor = emacs
+# Get the golbal definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+alias ll='ls -alG'
+alias grep='grep --color=auto -n'
+
+source ~/.gitscripts/git-completion.sh
+source ~/.gitscripts/git-prompt.sh
+
+export PS1='\e[32m[\d \t\e[33m$(__git_ps1 " (%s)")\e[32m \W]\e[37m: '
+

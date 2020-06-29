@@ -428,6 +428,7 @@ ov)
  '(show-paren-delay 0)
  '(show-paren-style (quote parenthesis))
  '(show-trailing-whitespace t)
+ '(typescript-indent-level 2)
  '(visible-cursor nil))
 
 

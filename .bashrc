@@ -17,7 +17,7 @@
 ##
 ################################################################################
 
-# Get the golbal definitions
+# Get the global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi

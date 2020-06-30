@@ -217,6 +217,11 @@
 (setq vc-handled-backends nil) ;; turn it all off
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Default to CPerl mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defalias 'perl-mode 'cperl-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; File to mode bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -379,7 +384,10 @@ ov)
      (template-args-cont c-lineup-template-args +))))
  '(column-number-mode t)
  '(cperl-brace-offset -2)
+ '(cperl-close-paren-offset -2)
  '(cperl-continued-brace-offset 0)
+ '(cperl-indent-level 2)
+ '(cperl-indent-parens-as-block t)
  '(css-indent-offset 2)
  '(dabbrev-case-fold-search nil)
  '(erc-autoaway-message
@@ -412,12 +420,13 @@ ov)
  '(js-enabled-frameworks (quote (javascript)))
  '(js-indent-level 2)
  '(large-file-warning-threshold nil)
+ '(max-mini-window-height 5)
  '(org-agenda-skip-deadline-if-done t)
  '(org-log-done (quote time) t)
  '(org-log-note-clock-out nil)
  '(package-selected-packages
    (quote
-    (ng2-mode epl typescript-mode flymake groovy-mode pkg-info seq let-alist)))
+    (ng2-mode epl typescript-mode magit flymake groovy-mode pkg-info seq let-alist)))
  '(safe-local-variables-values
    (quote
     ((tabs-width . 4)

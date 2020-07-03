@@ -25,7 +25,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-emacs-ide ()
-  (message "Setting up Emacs IDE plugins for %s" major-mode)
+  (message "[clifford] Setting up Emacs IDE plugins")
   (clifford:setup-gnu-global)
   (clifford:setup-auto-complete)
   (clifford:setup-iedit)
@@ -45,6 +45,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-gnu-global ()
+  (message "[clifford] Setting up GNU Global")
   (setq load-path (cons "~/.emacs.d/plugins" load-path))
   (load-library "gtags")
   (autoload 'gtags-mode "gtags" "" t)
@@ -62,9 +63,9 @@
 (defun clifford:setup-auto-complete ()
   (if (version<= emacs-version "24.3")
     (progn
-      (message "Emacs version is earlier than or equal to 24.3. Not loading auto-complete mode."))
+      (message "[clifford] Emacs version is earlier than or equal to 24.3. Not loading auto-complete mode."))
     (progn
-      (message "Emacs version is later than 24.3. Loading auto-complete mode.")
+      (message "[clifford] Emacs version is later than 24.3. Loading auto-complete mode.")
       (require 'auto-complete-config)
       (ac-config-default)
       (clifford:setup-auto-complete-c-headers))))
@@ -72,6 +73,7 @@
 ;; My hook for starting auto-complete-c-headers mode while editing
 ;; C++ and C files
 (defun clifford:setup-auto-complete-c-headers ()
+  (message "[clifford] Setting up auto-complete-c-headers")
   (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete-c-headers")
   (require 'auto-complete-c-headers)
   (add-to-list 'ac-sources 'ac-source-headers)
@@ -82,7 +84,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-yasnippet ()
-  (message "Starting yasnippet")
+  (message "[clifford] Setting up yasnippet")
   (require 'yasnippet)
   (yas-global-mode t))
 
@@ -91,6 +93,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-iedit ()
+  (message "[clifford] Setting up iedit")
   (require 'iedit))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -98,7 +101,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-flycheck ()
-  (message "Starting Flycheck mode")
+  (message "[clifford] Setting up Flycheck mode")
   (add-to-list 'load-path "~/.emacs.d/plugins/dash")
   (add-to-list 'load-path "~/.emacs.d/plugins/flycheck")
   (add-to-list 'load-path "~/.emacs.d/plugins/flycheck-tip")
@@ -122,6 +125,7 @@
   )
 
 (defun clifford:setup-flycheck-include-paths ()
+  (message "[clifford] Setting up Flycheck include paths")
   (setq flycheck-highlighting-mode (quote lines)))
 ;;  (setq flycheck-gcc-include-path
 ;;        (list
@@ -140,7 +144,7 @@
 (setq projectile-project-root "/Users/cliff/Developer/github/coursefiles/angular-essential-training")
 
 (defun clifford:setup-projectile ()
-  (message "Starting projectile-mode with root at %s" projectile-project-root)
+  (message "[clifford] Setting up projectile-mode with root at %s" projectile-project-root)
   (require 'projectile)
   (projectile-global-mode)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
@@ -150,7 +154,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-ycmd ()
-  (message "Setting up YouCompleteMe mode")
+  (message "[clifford] Setting up YouCompleteMe mode")
   (add-to-list 'load-path "~/.emacs.d/plugins/ycmd")
   (add-to-list 'load-path "~/.emacs.d/plugins/dash")
   (add-to-list 'load-path "~/.emacs.d/plugins/deferred")
@@ -177,7 +181,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-perltidy ()
-  (message "Setting up PerlTidy mode")
+  (message "[clifford] Setting up PerlTidy mode")
   (require 'perltidy)
   (add-hook 'cperl-mode 'perltidy)
   (add-hook 'perl-mode 'perltidy)
@@ -191,7 +195,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-perlcritic ()
-  (message "Setting up PerlCritic mode")
+  (message "[clifford] Setting up PerlCritic mode")
   (require 'perlcritic)
   (setq perlcritic-profile "perlcritic.conf")
   (setq perlcritic-severity 1)
@@ -205,7 +209,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-par-packer-mode ()
-  (message "Setting up PAR::Packer mode")
+  (message "[clifford] Setting up PAR::Packer mode")
   (setq par-packer-keywords
         '(("--\\(addfile\\|exclude\\|lib\\|link\\|module\\|noscan\\|compile\\|unicode\\|output\\|verbose\\|clean\\|filter\\|modfilter\\|cachedeps\\|compress\\)" . font-lock-keyword-face))))
 
@@ -218,7 +222,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-perly-sense ()
-  (message "Setting up Devel::PerlySense")
+  (message "[clifford] Setting up Devel::PerlySense")
   ;; The PerlySense prefix key (unset only if needed, like for \C-o)
   (global-unset-key "\C-o")
   (setq ps/key-prefix "\C-o")

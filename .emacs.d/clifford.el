@@ -102,10 +102,6 @@
 
 (defun clifford:setup-flycheck ()
   (message "[clifford] Setting up Flycheck mode")
-  (add-to-list 'load-path "~/.emacs.d/plugins/dash")
-  (add-to-list 'load-path "~/.emacs.d/plugins/flycheck")
-  (add-to-list 'load-path "~/.emacs.d/plugins/flycheck-tip")
-  (require 'pkg-info) ;; Required by flycheck
   (require 'flycheck)
 ;;  (clifford:setup-flycheck-include-paths)
 

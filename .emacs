@@ -230,13 +230,11 @@
                                 ("\\.c$"             . c-mode)
                                 ("\\.gp$"            . shell-script-mode) ;; GNU Plot
                                 ("\\.h$"             . c++-mode)
-                                ("\\.html$"          . ng2-html-mode)
                                 ("\\.js$"            . js-mode)
                                 ("\\.java$"          . java-mode)
                                 ("\\.pl$"            . cperl-mode)
                                 ("\\.pm$"            . cperl-mode)
                                 ("\\.pp$"            . par-packer-mode)
-                                ("\\.ts$"            . ng2-ts-mode)
                                 ("\\.ut$"            . c++-mode)
                                 ("\\.xml$"           . nxml-mode)
                                 ("\\.xsd$"           . nxml-mode)

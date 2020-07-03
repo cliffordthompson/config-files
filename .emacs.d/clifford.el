@@ -137,7 +137,7 @@
 ;;; projectile mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq projectile-project-root "/Users/cliff/Developer/github/coursefiles/angular-essential-training")
+(setq projectile-project-root "<path to projectile root>")
 
 (defun clifford:setup-projectile ()
   (message "[clifford] Setting up projectile-mode with root at %s" projectile-project-root)

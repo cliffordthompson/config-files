@@ -65,7 +65,6 @@
       (message "Emacs version is earlier than or equal to 24.3. Not loading auto-complete mode."))
     (progn
       (message "Emacs version is later than 24.3. Loading auto-complete mode.")
-      (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete")
       (require 'auto-complete-config)
       (ac-config-default)
       (clifford:setup-auto-complete-c-headers))))

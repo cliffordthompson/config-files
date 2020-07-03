@@ -37,7 +37,8 @@
   (clifford:setup-perlcritic)
   ;;(clifford:setup-ycmd)
   (clifford:setup-par-packer-mode)
-  (clifford:setup-perly-sense))
+  ;;(clifford:setup-perly-sense)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GNU Global
@@ -91,7 +92,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-iedit ()
-  (add-to-list 'load-path "~/.emacs.d/plugins/iedit")
   (require 'iedit))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

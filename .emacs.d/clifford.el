@@ -155,12 +155,6 @@
 
 (defun clifford:setup-ycmd ()
   (message "[clifford] Setting up YouCompleteMe mode")
-  (add-to-list 'load-path "~/.emacs.d/plugins/ycmd")
-  (add-to-list 'load-path "~/.emacs.d/plugins/dash")
-  (add-to-list 'load-path "~/.emacs.d/plugins/deferred")
-  (add-to-list 'load-path "~/.emacs.d/plugins/f")
-  (add-to-list 'load-path "~/.emacs.d/plugins/popup")
-  (add-to-list 'load-path "~/.emacs.d/plugins/s")
   (set-variable 'ycmd-server-command '("python2.6" "<path to ycmd>"))
   (require 'ycmd)
   (ycmd-setup))

@@ -1,6 +1,6 @@
-(define-package "ng2-mode" "0.2.2" "Major modes for editing Angular 2"
+(define-package "ng2-mode" "0.2.3" "Major modes for editing Angular 2"
   '((typescript-mode "0.1"))
-  :commit "57e6e4e388624853bc3b79bf5b17d2663ce26fa5" :keywords
+  :commit "52fdfe27247548b46f6171eebaf887a90dd67463" :keywords
   '("typescript" "angular" "angular2" "template")
   :authors
   '(("Adam Niederer" . "adam.niederer@gmail.com"))

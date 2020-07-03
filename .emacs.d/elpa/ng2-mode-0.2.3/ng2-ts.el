@@ -4,7 +4,7 @@
 
 ;; Author: Adam Niederer <adam.niederer@gmail.com>
 ;; URL: http://github.com/AdamNiederer/ng2-mode
-;; Version: 0.2.2
+;; Version: 0.2.3
 ;; Keywords: typescript angular angular2
 ;; Package-Requires: ((typescript-mode "0.1"))
 
@@ -162,19 +162,20 @@
 
 (defun ng2-ts--inside-lambda-args-p (pos)
   "Return whether POS is inside the arguments to an arrow function."
-  (save-match-data
-    (<= (save-excursion
-          (goto-char pos)
-          (search-forward "=>" nil t)
-          (backward-sexp)
-          (point))
-        pos
-        (save-excursion
-          (goto-char pos)
-          (search-forward "=>" nil t)
-          (backward-sexp)
-          (forward-sexp)
-          (1- (point))))))
+  (ignore-errors
+    (save-match-data
+      (<= (save-excursion
+            (goto-char pos)
+            (search-forward "=>" nil t)
+            (backward-sexp)
+            (point))
+          pos
+          (save-excursion
+            (goto-char pos)
+            (search-forward "=>" nil t)
+            (backward-sexp)
+            (forward-sexp)
+            (1- (point)))))))
 
 (defun ng2-ts--end-of-lambda-args (pos)
   "Return the first end of an arrow function's arguments after POS."
@@ -186,7 +187,7 @@
 
 (defun ng2-ts--skip-whitespace ()
   "Move POINT past all contiguous whitespace ahead of it."
-  (save-match-data (while (looking-at "\\s-") (forward-char))))
+  (save-match-data (while (looking-at "\\s-\\|\n") (forward-char))))
 
 (defun ng2-ts--highlight-lambda-args-fn (bound)
   "Match a type inside an import block between point and BOUND."
@@ -200,7 +201,7 @@
              (ng2-ts--skip-whitespace)
              (forward-char 2)
              (prog1 (save-match-data (search-forward "=>" bound 1))
-               (backward-sexp)))
+               (ignore-errors (backward-sexp))))
            (ng2-ts--highlight-lambda-args-fn bound))))
 
 (defun ng2-ts-goto-name (name)

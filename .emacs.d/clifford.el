@@ -82,7 +82,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-yasnippet ()
-  (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+  (message "Starting yasnippet")
   (require 'yasnippet)
   (yas-global-mode t))
 

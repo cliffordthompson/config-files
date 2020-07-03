@@ -137,12 +137,13 @@
 ;;; projectile mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq projectile-project-root "")
+(setq projectile-project-root "/Users/cliff/Developer/github/coursefiles/angular-essential-training")
 
 (defun clifford:setup-projectile ()
+  (message "Starting projectile-mode with root at %s" projectile-project-root)
   (require 'projectile)
   (projectile-global-mode)
-  (message "Starting projectile-mode with root at %s" projectile-project-root))
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ycmd mode

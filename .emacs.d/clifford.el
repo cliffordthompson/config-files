@@ -32,6 +32,7 @@
   (clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
   (clifford:setup-flycheck)
+  (clifford:setup-magit)
   (clifford:setup-projectile)
   (clifford:setup-perltidy)
   (clifford:setup-perlcritic)
@@ -269,3 +270,12 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   ;; Run calls to perly_sense as a prepared shell command. Experimental
   ;; optimization, please try it out.
   (setq ps/use-prepare-shell-command t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; magit mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun clifford:setup-magit ()
+  (message "[clifford] Setting up Magit mode")
+  (require 'magit)
+  (global-set-key [(control c) (g)] 'magit-file-popup))

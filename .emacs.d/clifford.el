@@ -38,8 +38,7 @@
   (clifford:setup-perlcritic)
   ;;(clifford:setup-ycmd)
   (clifford:setup-par-packer-mode)
-  ;;(clifford:setup-perly-sense)
-  )
+  (clifford:setup-perly-sense))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GNU Global
@@ -115,7 +114,17 @@
   ;;(add-hook 'perl-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'sh-mode-hook 'flycheck-mode)
-  ;;(add-hook 'js-mode-hook 'flycheck-mode)
+  (add-hook 'html-mode-hook 'flycheck-mode)
+  (add-hook 'mhtml-mode-hook 'flycheck-mode)
+  (add-hook 'js-mode-hook 'flycheck-mode)
+  (add-hook 'css-mode-hook 'flycheck-mode)
+  (add-hook 'ng2-ts-mode-hook 'flycheck-mode)
+
+  ;; Make ng2-mode use tslint for Typescript files
+  (flycheck-add-mode 'typescript-tslint 'ng2-ts-mode)
+
+  ;; Make ng2-mode use tslint for Typescript files
+  (flycheck-add-mode 'html-tidy 'mhtml-mode)
 
   ;;(setq flycheck-perlcritic-severity 1) ;; Severity: Brutal
   ;;  (setq flycheck-perlcritic "perlcritic.conf")
@@ -138,7 +147,7 @@
 ;;; projectile mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq projectile-project-root "<path to projectile root>")
+(setq projectile-project-root "c:/dev/avnprod/development/")
 
 (defun clifford:setup-projectile ()
   (message "[clifford] Setting up projectile-mode with root at %s" projectile-project-root)
@@ -161,7 +170,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun clifford:setup-ff-find-other-files ()
-  (message "Setting up the search directories for ff-find-other-files")
+  (message "[clifford] Setting up the search directories for ff-find-other-files")
   (set-variable 'ff-search-directories
                 (list
                  (file-truename (concat clifford:workspace-path "<dirA>"))
@@ -188,8 +197,9 @@
 (defun clifford:setup-perlcritic ()
   (message "[clifford] Setting up PerlCritic mode")
   (require 'perlcritic)
-  (setq perlcritic-profile "perlcritic.conf")
+  (setq perlcritic-profile "C:\\Dev\\avnprod\\development\\tools\\conf\\perlcritic.conf")
   (setq perlcritic-severity 1)
+  (setq perlcritic-verbose 3)
   (add-hook 'cperl-mode 'perlcritic)
   (add-hook 'perl-mode 'perlcritic)
   (global-set-key [(control x) (p) (c) (b)] 'perlcritic)
@@ -260,8 +270,8 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   ;; The following colors work fine with a white X11
   ;; background. They may not look that great on a console with the
   ;; default color scheme.
-  (set-face-background 'flymake-errline "antique white")
-  (set-face-background 'flymake-warnline "lavender")
+  (set-face-background 'flymake-errline "red4")
+  (set-face-background 'flymake-warnline "cyan")
   (set-face-background 'dropdown-list-face "lightgrey")
   (set-face-background 'dropdown-list-selection-face "grey")
 

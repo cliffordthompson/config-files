@@ -26,19 +26,32 @@
 
 (defun clifford:setup-emacs-ide ()
   (message "[clifford] Setting up Emacs IDE plugins")
-  (clifford:setup-gnu-global)
-  (clifford:setup-auto-complete)
+  ;;(clifford:setup-gnu-global)
+  ;;(clifford:setup-auto-complete)
   (clifford:setup-iedit)
   (clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
   (clifford:setup-flycheck)
   (clifford:setup-magit)
   (clifford:setup-projectile)
-  (clifford:setup-perltidy)
-  (clifford:setup-perlcritic)
+  (clifford::setup-projectile-rails)
+  ;;(clifford:setup-perltidy)
+  ;;(clifford:setup-perlcritic)
   ;;(clifford:setup-ycmd)
-  (clifford:setup-par-packer-mode)
-  (clifford:setup-perly-sense))
+  ;;(clifford:setup-par-packer-mode)
+  ;;(clifford:setup-perly-sense)
+  (clifford::setup-editorconfig)
+  (clifford::setup-lsp)
+  (clifford::setup-helm)
+  (clifford::setup-crux)
+  (clifford::setup-company-mode)
+  (clifford::setup-rspec-mode)
+  (clifford::setup-ruby-mode)
+  (clifford::setup-js2-mode)
+  (clifford::setup-json-mode)
+  (clifford::setup-web-mode)
+  (clifford::setup-prettier)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GNU Global
@@ -86,6 +99,12 @@
 (defun clifford:setup-yasnippet ()
   (message "[clifford] Setting up yasnippet")
   (require 'yasnippet)
+  (require 'yasnippet-snippets)
+  (require 'react-snippets)
+  (require 'angular-snippets)
+  (require 'js-react-redux-yasnippets)
+  (require 'java-snippets)
+  (require 'common-lisp-snippets)
   (yas-global-mode t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,6 +138,8 @@
   (add-hook 'js-mode-hook 'flycheck-mode)
   (add-hook 'css-mode-hook 'flycheck-mode)
   (add-hook 'ng2-ts-mode-hook 'flycheck-mode)
+  (add-hook 'ruby-mode-hook 'flycheck-mode)
+  (add-hook 'haml-mode-hook 'flycheck-mode)
 
   ;; Make ng2-mode use tslint for Typescript files
   (flycheck-add-mode 'typescript-tslint 'ng2-ts-mode)
@@ -126,8 +147,13 @@
   ;; Make ng2-mode use tslint for Typescript files
   (flycheck-add-mode 'html-tidy 'mhtml-mode)
 
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (flycheck-add-mode 'javascript-eslint 'javascript-mode)
+
   ;;(setq flycheck-perlcritic-severity 1) ;; Severity: Brutal
   ;;  (setq flycheck-perlcritic "perlcritic.conf")
+
+  (add-hook 'flycheck-mode-hook #'clifford::use-eslint-from-node-modules)
   )
 
 (defun clifford:setup-flycheck-include-paths ()
@@ -143,17 +169,40 @@
   (interactive)
   (clifford:setup-flycheck))
 
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun clifford::use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; projectile mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq projectile-project-root "c:/dev/avnprod/development/")
+(setq projectile-project-root "~/Developer/thinkific/workspace/thinkific/")
 
 (defun clifford:setup-projectile ()
   (message "[clifford] Setting up projectile-mode with root at %s" projectile-project-root)
   (require 'projectile)
+  (require 'helm)
   (projectile-global-mode)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (setq projectile-completion-system 'helm)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  )
+
+(defun clifford::setup-projectile-rails ()
+  (message "[clifford] Setting up projectile-rails-mode with root at %s" projectile-project-root)
+  (require 'projectile-rails)
+  (projectile-rails-global-mode)
+  (setq projectile-rails-vanilla-command "bin/rails")
+  (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ycmd mode
@@ -288,4 +337,107 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
 (defun clifford:setup-magit ()
   (message "[clifford] Setting up Magit mode")
   (require 'magit)
-  (global-set-key [(control c) (g)] 'magit-file-popup))
+  (global-set-key [(control c) (g)] 'magit-file-dispatch)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; EditorConfig
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-editorconfig ()
+  (message "[clifford] Setting up EditorConfig")
+  (editorconfig-mode 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-lsp ()
+  (message "[clifford] Setting up LSP Mode")
+  (require 'lsp-mode)
+  (require 'lsp-ui)
+  (setq lsp-auto-configure t)
+  (add-hook 'ruby-mode-hook 'lsp)
+  (add-hook 'js-mode-hook 'lsp)
+  (add-hook 'typescript-mode-hook 'lsp)
+  (add-hook 'web-mode-hook 'lsp)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helm
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-helm ()
+  (message "[clifford] Setting up Helm")
+  (require 'helm)
+  (helm-mode 1)
+  (global-set-key (kbd "M-x") 'helm-M-x))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Crux
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-crux ()
+  (message "[clifford] Setting up Crux")
+  (require 'crux)
+  (global-set-key [(control c) (d)] 'crux-duplicate-current-line-or-region))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Company Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-company-mode ()
+  (message "[clifford] Setting up Company Mode")
+  (require 'company)
+  (require 'company-inf-ruby)
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-minimum-prefix-length 1)
+  (setq company-require-match nil)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; RSpec Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-rspec-mode ()
+  (message "[clifford] Setting up RSpec Mode")
+  (require 'rspec-mode)
+  (eval-after-load 'rspec-mode '(rspec-install-snippets))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-ruby-mode ()
+  (message "[clifford] Setting up Ruby Mode")
+  (setq ruby-insert-encoding-magic-comment nil) ;; Stop inserting encoding comments
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JS2 Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-js2-mode ()
+  (message "[clifford] Setting up JS2 Mode")
+  (require 'js2-mode)
+  (add-hook 'js-mode-hook 'js2-minor-mode)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JSON Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-json-mode ()
+  (message "[clifford] Setting up JSON Mode")
+  (require 'json-mode)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Web Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-web-mode ()
+  (message "[clifford] Setting up Web Mode")
+  (require 'web-mode)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Web Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun clifford::setup-prettier ()
+  (message "[clifford] Setting up Prettier")
+  (require 'prettier)
+  (add-hook 'after-init-hook #'global-prettier-mode)
+  )

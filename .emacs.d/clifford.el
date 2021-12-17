@@ -31,7 +31,7 @@
   (clifford:setup-iedit)
   (clifford:setup-yasnippet)
   ;;(clifford:setup-ff-find-other-files)
-  (clifford:setup-flycheck)
+  (clifford:setup-flycheck-mode)
   (clifford:setup-magit)
   (clifford:setup-projectile)
   (clifford::setup-projectile-rails)
@@ -51,6 +51,7 @@
   (clifford::setup-json-mode)
   (clifford::setup-web-mode)
   (clifford::setup-prettier)
+  (clifford::setup-tide-mode)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,7 +120,7 @@
 ;;; flycheck mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun clifford:setup-flycheck ()
+(defun clifford:setup-flycheck-mode ()
   (message "[clifford] Setting up Flycheck mode")
   (require 'flycheck)
 ;;  (clifford:setup-flycheck-include-paths)
@@ -434,10 +435,37 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Web Mode
+;; Prettier Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun clifford::setup-prettier ()
   (message "[clifford] Setting up Prettier")
   (require 'prettier)
   (add-hook 'after-init-hook #'global-prettier-mode)
+  (add-hook 'js-mode-hook #'prettier-mode)
+  (add-hook 'js-jsx-mode-hook #'prettier-mode)
+  (add-hook 'typescript-mode-hook #'prettier-mode)
+  (add-hook 'ruby-mode-hook #'prettier-mode)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TIDE Mode
+;;   https://github.com/ananthakumaran/tide
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+(defun clifford::setup-tide-mode ()
+  (message "[clifford] Setting up TIDE Mode")
+  (require 'tide)
+  (setq tide-project-root "~/Developer/thinkific/workspace/thinkific/")
+  (add-hook 'js-mode-hook #'setup-tide-mode)
+  (add-hook 'js-jsx-mode-hook #'setup-tide-mode)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (setq company-tooltip-align-annotations t))

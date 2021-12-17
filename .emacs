@@ -446,7 +446,7 @@ ov)
  '(org-log-done 'time t)
  '(org-log-note-clock-out nil)
  '(package-selected-packages
-   '(prettier js2-mode rspec-mode company-inf-ruby common-lisp-snippets java-snippets js-react-redux-yasnippets angular-snippets react-snippets yasnippet-snippets yasnippet crux realgud-pry realgud paredit projectile-rails web-mode magit magit-popup markdown-preview-mode helm lsp-treemacs exec-path-from-shell flycheck-tip lsp-mode yaml-mode editorconfig haml-mode json-mode solarized-theme gitignore-mode ng2-mode epl typescript-mode flymake groovy-mode pkg-info seq let-alist))
+   '(tide prettier js2-mode rspec-mode company-inf-ruby common-lisp-snippets java-snippets js-react-redux-yasnippets angular-snippets react-snippets yasnippet-snippets yasnippet crux realgud-pry realgud paredit projectile-rails web-mode magit magit-popup markdown-preview-mode helm lsp-treemacs exec-path-from-shell flycheck-tip lsp-mode yaml-mode editorconfig haml-mode json-mode solarized-theme gitignore-mode ng2-mode epl typescript-mode flymake groovy-mode pkg-info seq let-alist))
  '(safe-local-variables-values
    '((tabs-width . 4)
      (topmost-intro . 8)

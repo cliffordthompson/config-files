@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Copyright (c) 2018-2020 Clifford Thompson
+;; Copyright (c) 2015-2022 Clifford Thompson
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -52,6 +52,7 @@
   (clifford::setup-web-mode)
   (clifford::setup-prettier)
   (clifford::setup-tide-mode)
+  (clifford::setup-string-inflection)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -106,6 +107,7 @@
   (require 'js-react-redux-yasnippets)
   (require 'java-snippets)
   (require 'common-lisp-snippets)
+  (require 'mocha-snippets)
   (yas-global-mode t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -123,7 +125,8 @@
 (defun clifford:setup-flycheck-mode ()
   (message "[clifford] Setting up Flycheck mode")
   (require 'flycheck)
-;;  (clifford:setup-flycheck-include-paths)
+  ;;  (clifford:setup-flycheck-include-paths)
+  (clifford::setup-flycheck-exec-and-config-paths)
 
   ;; Flycheck popup tips
   (require 'flycheck-tip)
@@ -141,6 +144,7 @@
   (add-hook 'ng2-ts-mode-hook 'flycheck-mode)
   (add-hook 'ruby-mode-hook 'flycheck-mode)
   (add-hook 'haml-mode-hook 'flycheck-mode)
+  (add-hook 'coffee-mode-hook 'flycheck-mode)
 
   ;; Make ng2-mode use tslint for Typescript files
   (flycheck-add-mode 'typescript-tslint 'ng2-ts-mode)
@@ -169,6 +173,32 @@
 (defun clifford:setup-test-flycheck-workspace ()
   (interactive)
   (clifford:setup-flycheck))
+
+(defun clifford::setup-flycheck-exec-and-config-paths ()
+  (message "[clifford] Setting up Flycheck exec and config paths")
+
+  ;; ESLint
+  (setq flycheck-javascript-eslint-executable "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/eslint")
+  (setq flycheck-eslintrc "/Users/clifford/Developer/thinkific/workspace/thinkific/.eslintrc")
+
+  ;; Stylelint (CSS)
+  (setq flycheck-css-stylelint-executable "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/stylelint")
+  (setq flycheck-stylelintrc "/Users/clifford/Developer/thinkific/workspace/thinkific/.stylelintrc")
+  (setq flycheck-stylelint-args "--formatter=unix")
+
+  ;; SASS Lint (SASS/SCSS)
+  (setq flycheck-sass/scss-sass-lint-executable "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/sass-lint")
+  (setq flycheck-scss-stylelint-executable "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/stylelint")
+  (setq flycheck-sass-lintrc ".sass-lint.yml")
+
+  ;; Coffeescript
+  (setq flycheck-coffee-executable "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/coffee")
+
+  ;; Perl Critic
+  (setq flycheck-perlcriticrc "perlcritic.conf")
+
+  ;; HTML Tidy
+  (setq flycheck-tidyrc ".htmltidyrc"))
 
 ;; use local eslint from node_modules before global
 ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
@@ -357,6 +387,7 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   (require 'lsp-mode)
   (require 'lsp-ui)
   (setq lsp-auto-configure t)
+  (global-set-key [(control c) (59)] 'lsp-iedit-highlights)
   (add-hook 'ruby-mode-hook 'lsp)
   (add-hook 'js-mode-hook 'lsp)
   (add-hook 'typescript-mode-hook 'lsp)
@@ -388,6 +419,7 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   (require 'company)
   (require 'company-inf-ruby)
   (add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
   (setq company-minimum-prefix-length 1)
   (setq company-require-match nil)
   )
@@ -452,7 +484,7 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
 ;;   https://github.com/ananthakumaran/tide
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun setup-tide-mode ()
+(defun clifford::_setup-tide-mode ()
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
@@ -465,7 +497,37 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   (message "[clifford] Setting up TIDE Mode")
   (require 'tide)
   (setq tide-project-root "~/Developer/thinkific/workspace/thinkific/")
-  (add-hook 'js-mode-hook #'setup-tide-mode)
-  (add-hook 'js-jsx-mode-hook #'setup-tide-mode)
-  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (add-hook 'js-mode-hook #'clifford::_setup-tide-mode)
+  (add-hook 'js-jsx-mode-hook #'clifford::_setup-tide-mode)
+  (add-hook 'typescript-mode-hook #'clifford::_setup-tide-mode)
   (setq company-tooltip-align-annotations t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; String Inflection Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun clifford::setup-string-inflection ()
+  (message "[clifford] Setting up string-inflection")
+  (require 'string-inflection)
+  (setq string-inflection-skip-backward-when-done t)
+
+  ;; default
+  (global-set-key (kbd "C-c s i") 'string-inflection-all-cycle)
+
+  ;; for ruby
+  (add-hook 'ruby-mode-hook
+            '(lambda ()
+               (local-set-key
+                (kbd "C-c s i") 'string-inflection-ruby-style-cycle)))
+
+  ;; for java
+  (add-hook 'java-mode-hook
+            '(lambda ()
+               (local-set-key
+                (kbd "C-c s i") 'string-inflection-java-style-cycle)))
+
+  ;; for python
+  (add-hook 'python-mode-hook
+            '(lambda ()
+               (local-set-key
+                (kbd "C-c s i") 'string-inflection-python-style-cycle))))

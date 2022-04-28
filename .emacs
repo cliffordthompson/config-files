@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Copyright (c) 2015-2020 Clifford Thompson
+;; Copyright (c) 1998-2022 Clifford Thompson
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@
 (setq transient-mark-mode t)                                  ;; Highlight region when marking
 (setq make-backup-files nil)                                  ;; Disable ~ files
 (setq auto-save-default nil)                                  ;; Disable #auto-save# files
-
+(setq tool-bar-mode nil)                                      ;; Disable toolbar
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Disable the splash screen (to enable it agin, replace
@@ -81,6 +81,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (show-paren-mode t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Sub-word mode. Move between camelCase words
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-subword-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Save file and window layout on close
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(desktop-save-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Remember cursor position
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(if (version< emacs-version "25.0")
+    (progn
+      (require 'saveplace)
+      (setq-default save-place t))
+  (save-place-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Line motion
@@ -228,13 +250,14 @@
 (setq auto-mode-alist (append '(("\\.cpp$"           . c++-mode)
                                 ("\\.cc$"            . c++-mode)
                                 ("\\.c$"             . c-mode)
+                                ("\\.js.coffee$"     . coffee-mode)
                                 ("\\.css$"           . css-mode)
                                 ("\\.erb$"           . web-mode)
                                 ("\\.gp$"            . shell-script-mode) ;; GNU Plot
                                 ("\\.h$"             . c++-mode)
                                 ("\\.haml$"          . haml-mode)
                                 ("\\.html$"          . web-mode)
-                                ("\\.js$"            . js-mode)
+                                ("\\.js$"            . js2-mode)
                                 ("\\.jsx$"           . js-mode)
                                 ("\\.json$"          . json-mode)
                                 ("\\.java$"          . java-mode)
@@ -418,16 +441,11 @@ ov)
  '(flycheck-css-csslint-executable nil)
  '(flycheck-disabled-checkers '(c/c++-clang))
  '(flycheck-eslint-rules-directories nil)
- '(flycheck-eslintrc "~/../../.eslintrc.js")
  '(flycheck-gcc-language-standard "c++11")
  '(flycheck-highlighting-mode 'lines)
  '(flycheck-idle-change-delay 3.0)
- '(flycheck-javascript-eslint-executable
-   "/Users/clifford/Developer/thinkific/workspace/thinkific/node_modules/.bin/eslint")
  '(flycheck-perlcritic-severity 1)
- '(flycheck-perlcriticrc "perlcritic.conf")
  '(flycheck-python-pycompile-executable "/usr/bin/python3")
- '(flycheck-tidyrc ".htmltidyrc")
  '(flycheck-typescript-tslint-executable nil)
  '(gdb-many-windows t)
  '(gdb-use-separate-io-buffer t)
@@ -446,7 +464,7 @@ ov)
  '(org-log-done 'time t)
  '(org-log-note-clock-out nil)
  '(package-selected-packages
-   '(tide prettier js2-mode rspec-mode company-inf-ruby common-lisp-snippets java-snippets js-react-redux-yasnippets angular-snippets react-snippets yasnippet-snippets yasnippet crux realgud-pry realgud paredit projectile-rails web-mode magit magit-popup markdown-preview-mode helm lsp-treemacs exec-path-from-shell flycheck-tip lsp-mode yaml-mode editorconfig haml-mode json-mode solarized-theme gitignore-mode ng2-mode epl typescript-mode flymake groovy-mode pkg-info seq let-alist))
+   '(mocha-snippets string-inflection coffee-mode tide prettier js2-mode rspec-mode company-inf-ruby common-lisp-snippets java-snippets js-react-redux-yasnippets angular-snippets react-snippets yasnippet-snippets yasnippet crux realgud-pry realgud paredit projectile-rails web-mode magit magit-popup markdown-preview-mode helm lsp-treemacs exec-path-from-shell flycheck-tip lsp-mode yaml-mode editorconfig haml-mode json-mode solarized-theme gitignore-mode ng2-mode epl typescript-mode flymake groovy-mode pkg-info seq let-alist))
  '(safe-local-variables-values
    '((tabs-width . 4)
      (topmost-intro . 8)
@@ -456,6 +474,7 @@ ov)
  '(show-paren-delay 0)
  '(show-paren-style 'parenthesis)
  '(show-trailing-whitespace t)
+ '(string-inflection-skip-backward-when-done t)
  '(typescript-indent-level 2)
  '(visible-cursor nil))
 

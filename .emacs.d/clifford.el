@@ -53,6 +53,7 @@
   (clifford::setup-prettier)
   (clifford::setup-tide-mode)
   (clifford::setup-string-inflection)
+  (clifford::setup-treemacs)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -386,12 +387,14 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
   (message "[clifford] Setting up LSP Mode")
   (require 'lsp-mode)
   (require 'lsp-ui)
+  (require 'lsp-treemacs)
   (setq lsp-auto-configure t)
   (global-set-key [(control c) (59)] 'lsp-iedit-highlights)
   (add-hook 'ruby-mode-hook 'lsp)
   (add-hook 'js-mode-hook 'lsp)
   (add-hook 'typescript-mode-hook 'lsp)
   (add-hook 'web-mode-hook 'lsp)
+  (lsp-treemacs-sync-mode 1)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -531,3 +534,13 @@ Does 'perly_sense external_dir' give you a proper directory? (%s)" ps/external-d
             '(lambda ()
                (local-set-key
                 (kbd "C-c s i") 'string-inflection-python-style-cycle))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Treemacs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun clifford::setup-treemacs ()
+  (message "[clifford] Setting up Treemacs")
+  (require 'treemacs)
+)

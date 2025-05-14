@@ -40,7 +40,7 @@
         ba         = branch --all
         fall       = submodule foreach 'git fetch origin -p'
         pall       = submodule foreach 'git pull origin -p'
-        pshall     = submodule foreach 'git push origin'
+        pshall     = submodule foreach 'git push origin ${1} || :'
         chall      = submodule foreach 'git checkout ${1} || :'
         stall      = submodule foreach 'git stash push -m ${1}'
         rball      = submodule foreach 'git rebase origin/${1}'

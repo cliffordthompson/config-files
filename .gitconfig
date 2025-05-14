@@ -33,12 +33,23 @@
        old  = red
        new  = green
 [alias]
-        wdiff = diff --word-diff
-        lg    = log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
-        lga   = log --color --graph --decorate --all --oneline
+        wdiff      = diff --word-diff
+        lg         = log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
+        lga        = log --color --graph --decorate --all --oneline
         new-branch = checkout -b
-        ba = branch --all
+        ba         = branch --all
+        fall       = submodule foreach 'git fetch origin -p'
+        pall       = submodule foreach 'git pull origin -p'
+        pshall     = submodule foreach 'git push origin'
+        chall      = submodule foreach 'git checkout ${1} || :'
+        stall      = submodule foreach 'git stash push -m ${1}'
+        rball      = submodule foreach 'git rebase origin/${1}'
+        rsall      = submodule foreach 'git reset --hard origin/${1}'
 [push]
         default = simple
+[fetch]
+        prune = true
+[recurse]
+        submodules = true
 [core]
 	editor = emacs

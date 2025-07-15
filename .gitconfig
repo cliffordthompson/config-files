@@ -38,13 +38,14 @@
         lga        = log --color --graph --decorate --all --oneline
         new-branch = checkout -b
         ba         = branch --all
+        upall      = submodule update --init --recursive
         fall       = submodule foreach 'git fetch origin -p'
         pall       = submodule foreach 'git pull origin -p'
         pshall     = submodule foreach 'git push origin ${1} || :'
         chall      = submodule foreach 'git checkout ${1} || :'
         stall      = submodule foreach 'git stash push -m ${1}'
         rball      = submodule foreach 'git rebase origin/${1}'
-        rsall      = submodule foreach 'git reset --hard origin/${1}'
+        resetall   = submodule foreach 'git reset --hard origin/${1}'
 [push]
         default = simple
 [fetch]

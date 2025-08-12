@@ -33,19 +33,27 @@
        old  = red
        new  = green
 [alias]
-        wdiff      = diff --word-diff
-        lg         = log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
-        lga        = log --color --graph --decorate --all --oneline
-        new-branch = checkout -b
-        ba         = branch --all
-        upall      = submodule update --init --recursive
-        fall       = submodule foreach 'git fetch origin -p'
-        pall       = submodule foreach 'git pull origin -p'
-        pshall     = submodule foreach 'git push origin ${1} || :'
-        chall      = submodule foreach 'git checkout ${1} || :'
-        stall      = submodule foreach 'git stash push -m ${1}'
-        rball      = submodule foreach 'git rebase origin/${1}'
-        resetall   = submodule foreach 'git reset --hard origin/${1}'
+        wdiff      = !git diff --word-diff
+        lg         = !git log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
+        lga        = !git log --color --graph --decorate --all --oneline
+        new-branch = !git checkout -b
+        ba         = !git branch --all
+        upall      = !git submodule update --init --recursive
+        fall       = !git fetch origin && submodule foreach 'git fetch origin -p'
+        pall       = !git pull origin && submodule foreach 'git pull origin -p'
+        pshall     = !git push origin ${1} && submodule foreach 'git push origin ${1} || :'
+        chall      = !git checkout ${1} && submodule foreach 'git checkout ${1} || :'
+        stall      = !git stash push -m "${1}" && submodule foreach 'git stash push -m ${1}'
+        rball      = !git rebase origin/${1} && submodule foreach 'git rebase origin/${1}'
+        resetall = "!f() { \
+            branch=\"$1\"; \
+            git fetch origin && \
+            git checkout \"$branch\" && \
+            git reset --hard \"origin/$branch\" && \
+            git submodule update --init --recursive && \
+            git submodule foreach \"git checkout $branch\" && \
+            git submodule foreach \"git reset --hard origin/$branch\"; \
+        }; f"
 [push]
         default = simple
 [fetch]

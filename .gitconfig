@@ -34,7 +34,7 @@
        new  = green
 [alias]
         wdiff      = !git diff --word-diff
-        lg         = !git log --color --graph --pretty=format:'%Cred%h%Creset -C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
+        lg         = !git log --color --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit
         lga        = !git log --color --graph --decorate --all --oneline
         new-branch = !git checkout -b
         ba         = !git branch --all
